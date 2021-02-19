@@ -37,11 +37,14 @@ const useStyles = makeStyles({
         margin:25, 
         borderRadius:0,
         backgroundSize:"cover",
+        backgroundPosition:"center",
       },
       paperText:{
           position:"absolute",
           top:"55vh",
-          left:"10vw"
+          left:"10vw",
+          backgroundcolor:"black",
+          width:"40vw"
 
       }
   });

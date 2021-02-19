@@ -37,6 +37,9 @@ const useStyles = makeStyles({
         position: 'absolute',
         bottom: 0,
       },
+      rocket:{
+        height:"100vh",
+      }
       
   });
 
