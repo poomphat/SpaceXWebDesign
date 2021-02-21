@@ -83,14 +83,51 @@ export default function Rocketpage() {
     }
     console.log(image);
     return ( 
-    <div className='container centerS'>
-      <div className="TitleRocket col-lg-3 col-xs-6" style={{marginTop: '10vh'}}> {rocket.rocket_name}</div>
-      <div>
-      <div className="descript"> Aout this {rocket.rocket_name}</div>
-      <div className="info">
-
+    <div className='images' style={{width: '100vw',paddingBottom: '20vh'}}>
+      <div className='container'>
+      <div className="row ml-1 mr-1">
+      <div className="TitleRocket col-lg-10 col-xs-11 ml-4" style={{marginTop: '2vh'}}> {rocket.rocket_name}</div>
+      <div className="descript col-lg-5 col-xs-11 ml-4"> <h4>About this {rocket.rocket_name}</h4> 
+        <hr color="black"/>
+        <div className="info">
+            <div>Status : {(rocket.active)? 'Activate' : 'Not Activate'}</div>
+            <div>First Flight : {rocket.first_flight} </div>
+            <div>Cost per launch : {rocket.cost_per_launch/1000000} Millions USD</div>
+            <div>Height : {rocket.height?.meters} meters</div>
+            <div>diameter : {rocket.diameter?.meters} meters</div>
+            <br/>
+            <br/>
+            <Button className="detail" variant="outlined" style={{color: 'black', position: 'absolute',bottom: '10px',borderColor: 'black'}} onClick={() => openInfoNewTab(rocket.wikipedia)}>
+                        View Detail
+                    </Button>
+            </div>
+          </div>
+        <div className="descript col-lg-5 col-xs-11 ml-4">
+          <img src={rocket.flickr_images} style={{width: '100%',borderRadius: '5px'}}/>
+          </div>
       </div>
-      </div>
+     <div className="row ml-1 mr-1">
+      <div className="descript col-lg-5 col-xs-11 ml-4"> <h4>First stage</h4> 
+        <hr color="white"/>
+        <div className="info">
+            <div>Reusable : {(rocket.first_stage?.reusable)? 'Yes' : 'No'}</div>
+            <div>engines : {rocket.first_stage?.engines} </div>
+            <div>Fuel amount tons : {rocket?.first_stage?.fuel_amount_tons} Tons</div>
+            <div>burn time per sec : {rocket?.first_stage?.burn_time_sec} seconds</div>
+            </div>
+          </div>
+        <div className="descript col-lg-5 col-xs-11 ml-4">
+      <h4>Second stage</h4> 
+          <hr color="white"/>
+        <div className="info">
+            <div>Reusable : {(rocket.second_stage?.reusable)? 'Yes' : 'No'}</div>
+            <div>engines : {rocket.second_stage?.engines} </div>
+            <div>Fuel amount tons : {rocket?.second_stage?.fuel_amount_tons} Tons</div>
+            <div>burn time per sec : {rocket?.second_stage?.burn_time_sec} seconds</div>
+            </div>
+            </div>
+    </div></div>
+      
   </div>
     );
   }
