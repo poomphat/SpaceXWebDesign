@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+
 .Bg{
     width: 100vw;
     position: absolute;
@@ -21,13 +22,17 @@
 }
 .firstpic{
     width: 100vw;
+    background-image: url('./asset/image/space.png');
+    height: 110vh;
     top: 0;
     left: 0;
     z-index: 0;
-    margin-top: -60px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: inset 0px 0px 10px 10px #061221;
 }
 .textElon{
-    margin-left: 50px;
     justify-content: center;
     align-self: center;
     font-size: 28px;
@@ -53,14 +58,13 @@
     background-size: cover;
 }
 .mainContent{
-    position: absolute;
+    position:absolute;
     width: 100vw;
     height: 100vh;
     align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
-    margin-top: -80px;
 }
 .contentFirst{
     margin-top: 30px;
@@ -97,4 +101,34 @@
     transition: 0.25s;
     border-left: 0.5rem solid #000;
     margin-left: 20px;
+}
+
+.content2{
+    background-image: url('./asset/image/bg2.png');
+    background-attachment: fixed;
+    background-size: cover;
+}
+.detail{
+    background: rgba(0,0,0,0.75);
+}
+.TitleRocket{
+    align-self: center;
+    background-color: rgba(0,0,0,0.75);
+    padding: 10px;
+    text-align: center;
+    font-size: 36px;
+    border-radius: 5px;
+    box-shadow: rgb(29, 42, 56) 0px 20px 30px -10px;
+    color: #fff;
+}
+.descript{
+    align-self: center;
+    background-color: rgba(0,0,0,0.75);
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: rgb(29, 42, 56) 0px 20px 30px -10px;
+    color: #fff;
+    margin-top: 20px;
 }

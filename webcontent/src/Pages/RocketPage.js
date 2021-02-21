@@ -16,6 +16,26 @@ import {
     useParams
   } from "react-router-dom";
 
+  const RocketImage = [{
+    id: 'falcon1',
+    url:"https://www.nasaspaceflight.com/wp-content/uploads/2017/12/BCK_4062-1.jpg",
+},
+{
+    id: 'falcon9',
+    url:"https://www.drkrok.com/wp-content/uploads/2019/05/SpaceX-Falcon-9-rocket.jpg",
+
+},
+{
+    id:'falconHeavy',
+    url:"https://thestandard.co/wp-content/uploads/2018/02/NEWS-spaceX_cover_.jpg",
+
+},
+{
+    id:'starship',
+    url:"https://techcrunch.com/wp-content/uploads/2019/09/Starship-Mk1-Day.jpg?w=600",
+
+}
+]
 
 const useStyles = makeStyles({
     cardroot: {
@@ -54,45 +74,23 @@ export default function Rocketpage() {
       };
       fechRocket();
     }, []);
-
+    const image = RocketImage.find(i => i.id == rocket_id).url
     const classes = useStyles();
     
     const openInfoNewTab = (url) =>{
         const win = window.open(url, "_blank");
         console.log(win)
     }
-
+    console.log(image);
     return ( 
-    <div className='rocket'>
-    <div className="container col-12 col-sm-12" style={{justifyContent: 'center', paddingBottom: '50px',}}>
-      <Card style={{marginTop:70,alignSelf: 'space-between',backgroundColor: 'rgba(255,255,255,0.75)'}} className="col-lg-6 col-sm-12 ml-5 ">
-                          <CardContent>
-                              <Typography  color="textSecondary" gutterBottom>
-                              </Typography>
-                              <Typography variant="h5" component="h2">
-                              {rocket.rocket_name}
-                              </Typography>
-                              <Typography  color="textSecondary">
-                              Type : {rocket.rocket_type}
-                              </Typography>
-                              <Typography component="p">
-                              {rocket.description}
-                              </Typography>
-                              <Typography  color="textSecondary">
-                              First Flight : {rocket.first_flight}
-                              </Typography>
-                              <Typography  color="textSecondary">
-                              Launch Country : {rocket.country}
-                              </Typography>
-                              <Typography  color="textSecondary">
-                              Active : {rocket.active ? <Icon color='primary' >done</Icon>:<Icon color='error'>close</Icon>}
-                              </Typography>
-                              <br/>
-                          </CardContent>
-                          <CardActions className={classes.cardAction}>
-                          <Button size="small" color='primary' onClick={() => openInfoNewTab(rocket.wikipedia)}>Learn More</Button>
-                          </CardActions>
-                      </Card>
-      </div></div>
+    <div className='container centerS'>
+      <div className="TitleRocket col-lg-3 col-xs-6" style={{marginTop: '10vh'}}> {rocket.rocket_name}</div>
+      <div>
+      <div className="descript"> Aout this {rocket.rocket_name}</div>
+      <div className="info">
+
+      </div>
+      </div>
+  </div>
     );
   }

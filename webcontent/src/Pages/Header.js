@@ -10,7 +10,8 @@ import {
 } from '@material-ui/core/';
 import {Link} from "react-router-dom";
 import purple from '@material-ui/core/colors/purple';
-
+import logo from '../asset/image/logo.png'
+const path = window.location.pathname;
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -18,55 +19,43 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  Bar: {
-    marginTop: 10,
-    boxShadow: 'none',
-    backgroundColor : 'rgba(255, 255, 255, 0)',
-    color: 'white',
-    //position: 'absolute',
-    top:0,
-    zIndex:-1,
-  },
-  hello: {
-    paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
-  },
   buttonNav: {
-    marginRight: 10,
     color: 'white',
-    fontSize: '20px',
+    fontSize: '14px',
     textTransform: 'inherit',
+    boxShadow: 'none',
+    borderRadius: '10px',
   },
 }));
-const accent = purple['A200'];
+
 
 export default function Header() {
   const classes = useStyles();
-
+  const path = window.location.pathname;
+  console.log(path)
   return (
     <div className={classes.root}>
-        <AppBar position="static" color={accent} className={classes.Bar}>
-          <Toolbar variant="dense">{/** 
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <Icon>menu</Icon>
-            </IconButton>*/
-            }<div className='container'>     
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button color="primary" className={classes.buttonNav} style={{border:"none",outline:"none"}}>
-                SpaceX
+        <nav class="navbar navbar-expand-lg">
+              <div className='row'>     
+            <Link to="/" style={{ textDecoration: 'none' }} className="">
+              <Button className={classes.buttonNav} style={{border:"none",outline:"none"}}>
+              <img src={logo} style={{width:'150px', marginLeft: '10px'}}></img>
               </Button>
             </Link>
+            <div className=" col-6 row">
+           
             <Link to="/rocket" style={{ textDecoration: 'none' }}>
-              <Button color="primary" className={classes.buttonNav} style={{border:"none",outline:"none"}}>
+              <Button variant={(path=='/rocket')?'contained':""} className={classes.buttonNav} style={(path=='/rocket') ? {border:"none",outline:"none",color: 'black'} : {border:"none",outline:"none"}}>
                 Rocket
               </Button>
             </Link>
-            <Link to="/launch" style={{ textDecoration: 'none' }}>
-              <Button color="primary" className={classes.buttonNav} style={{border:"none",outline:"none"}}>
+         
+            <Link to="/launch" style={{ textDecoration: 'none' }} className="col-3">
+              <Button variant={(path=='/launch')?'contained':""} className={classes.buttonNav} style={(path=='/launch') ? {border:"none",outline:"none",color: 'black'} : {border:"none",outline:"none"}}>
                 Launch
               </Button>
-            </Link></div>
-          </Toolbar>
-        </AppBar>
+            </Link></div></div>
+        </nav>
     </div>
   );
 }

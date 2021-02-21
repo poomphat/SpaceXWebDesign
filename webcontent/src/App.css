@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&family=Kanit&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 
 .App {
   text-align: center;
@@ -40,7 +40,7 @@
   }
 }
 body{
-  background: linear-gradient(to bottom, #000000, #2c2c2c);
+  background: linear-gradient(to bottom, #041424, #041424);
   overflow-x: hidden;
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: 'Prompt', sans-serif !important;
 }
