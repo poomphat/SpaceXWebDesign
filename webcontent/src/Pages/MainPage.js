@@ -6,7 +6,14 @@ import React from 'react';
 import elon from '../asset/image/Elon.png'
 import logo from '../asset/image/logo.png'
 import {Link} from "react-router-dom";
-
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+  Button,
+  Icon,
+} from '@material-ui/core/';
 
 export default function Mainpage() {
     const [data, setData] = useState([]);
@@ -27,23 +34,24 @@ export default function Mainpage() {
       <div className="centerS">
          {console.log(data)}
          <div className="row">
-         <div className="firstpic col-12"></div>
-         </div>
-         <div className="mainContent row ml-3">
-           <div className="col-xs-4 col-lg-4">
+         <div className="firstpic">
+         <div className="mainContent ml-3 mr-3">
+           <div className="ml-4">
            <img src={logo} style={{width:'100%'}}></img>
            </div>
-           <div style={{flexdirection: 'row',display: 'flex'}}>
-              <div className="contentFirst">
-                <h5>Total Mission : {data[1]?.length}</h5>
-              </div>
+           <div style={{flexdirection: 'row',marginTop: 20}} className="ml-4">
+           <Button  variant="outlined" style={{ fontSize:'0.8rem',border: '2px solid rgb(174,174,178)',color:'rgb(174,174,178)', backgroundColor : 'rgba(255,255,255,0.02)'}}>
+                Total Mission : {data[1]?.length}
+            </Button>
               <Link to="/rocket" style={{ textDecoration: 'none' }}>
-              <div className="contentFirst">
-                <h5>Total Rocket : {data[0]?.length}</h5>
-              </div>
+              <Button  variant="outlined" style={{fontSize:'0.8rem',border: '2px solid rgb(48,209,88)' ,color:'rgb(48,209,88)'}} className="ml-2" >
+                Total Rocket : {data[0]?.length}
+              </Button>
               </Link>
            </div>
          </div> 
+         </div>
+         </div>
          <div className="content2 centerS">
                 <div style={{display: 'flex',alignSelf: 'center',marginTop: '100px',fontSize: 48, color: 'white'}} data-aos="zoom-in-up">
                 <p>Co-Founder</p>
@@ -61,6 +69,9 @@ export default function Mainpage() {
                 </div>
                 <div style={{display: 'flex',alignSelf: 'center', color: 'white',flexDirection: 'column',marginBottom: '50px'}} className=" col-10 ml-4 mr-4" data-aos="zoom-in-up">
                 <h1>About SpaceX</h1>
+                <div style={{width: '100%'}}>
+                <hr color="white"/>
+                </div>
                 <p>{data[2]?.summary} </p>
                 <div style={{}} className="row">
                     <div  className="about col-xs-10 col-lg-3 mt-4">founded : {data[2]?.founded}</div>

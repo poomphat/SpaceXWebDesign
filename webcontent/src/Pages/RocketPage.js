@@ -83,51 +83,57 @@ export default function Rocketpage() {
     }
     console.log(image);
     return ( 
-    <div className='images' style={{width: '100vw',paddingBottom: '20vh'}}>
+
       <div className='container'>
-      <div className="row ml-1 mr-1">
-      <div className="TitleRocket col-lg-10 col-xs-11 ml-4" style={{marginTop: '2vh'}}> {rocket.rocket_name}</div>
-      <div className="descript col-lg-5 col-xs-11 ml-4"> <h4>About this {rocket.rocket_name}</h4> 
-        <hr color="black"/>
-        <div className="info">
-            <div>Status : {(rocket.active)? 'Activate' : 'Not Activate'}</div>
-            <div>First Flight : {rocket.first_flight} </div>
-            <div>Cost per launch : {rocket.cost_per_launch/1000000} Millions USD</div>
-            <div>Height : {rocket.height?.meters} meters</div>
-            <div>diameter : {rocket.diameter?.meters} meters</div>
+       
+      <div className="row ">
+      <div className="col-lg-12 row" style={{marginTop: 50}}>
+      <div className="col-lg-10 col-xs-12" style={{fontSize: '4rem',color: 'white',marginBottom:0}}><p>{rocket.rocket_name}</p></div>
+      <div className="col-lg-2 col-xs-12 mt-4 mb-2">
+        <Button  variant="outlined" style={{color: 'white', position: 'absolute',bottom: '10px',borderColor: 'white'}} onClick={() => openInfoNewTab(rocket.wikipedia)}>
+                        View Detail</Button>
+      </div>
+        
+      <div className="ml-2 col-12" style={{width: '100%'}}>
+      <hr color="white"/>
+      </div>
+      </div>
+      
+      <div className="TitleRocket col-lg-6 col-xs-12 mr-4 ml-2" style={{marginTop: '2vh',fontSize: '18px'}}>
+            <p style={{color:'white'}}>Status : {(rocket.active)? 'Activate' : 'Not Activate'}</p>
+            <p>First Flight : {rocket.first_flight} </p>
+            <p>Cost per launch : {rocket.cost_per_launch/1000000} Millions USD</p>
+            <p>Height : {rocket.height?.meters} meters</p>
+            <p>diameter : {rocket.diameter?.meters} meters</p>
             <br/>
             <br/>
-            <Button className="detail" variant="outlined" style={{color: 'black', position: 'absolute',bottom: '10px',borderColor: 'black'}} onClick={() => openInfoNewTab(rocket.wikipedia)}>
-                        View Detail
-                    </Button>
-            </div>
-          </div>
-        <div className="descript col-lg-5 col-xs-11 ml-4">
+
+       </div>
+        <div className="descript col-lg-5 col-xs-12 ">
           <img src={rocket.flickr_images} style={{width: '100%',borderRadius: '5px'}}/>
           </div>
       </div>
-     <div className="row ml-1 mr-1">
-      <div className="descript col-lg-5 col-xs-11 ml-4"> <h4>First stage</h4> 
+     <div className="row">
+      <div className="descript col-lg-6 col-xs-11 "> <h3>First stage</h3> 
         <hr color="white"/>
-        <div className="info">
+       
             <div>Reusable : {(rocket.first_stage?.reusable)? 'Yes' : 'No'}</div>
             <div>engines : {rocket.first_stage?.engines} </div>
             <div>Fuel amount tons : {rocket?.first_stage?.fuel_amount_tons} Tons</div>
             <div>burn time per sec : {rocket?.first_stage?.burn_time_sec} seconds</div>
             </div>
-          </div>
-        <div className="descript col-lg-5 col-xs-11 ml-4">
-      <h4>Second stage</h4> 
+        
+        <div className="descript col-lg-6 col-xs-11">
+      <h3>Second stage</h3> 
           <hr color="white"/>
-        <div className="info">
+       
             <div>Reusable : {(rocket.second_stage?.reusable)? 'Yes' : 'No'}</div>
             <div>engines : {rocket.second_stage?.engines} </div>
             <div>Fuel amount tons : {rocket?.second_stage?.fuel_amount_tons} Tons</div>
             <div>burn time per sec : {rocket?.second_stage?.burn_time_sec} seconds</div>
             </div>
-            </div>
-    </div></div>
-      
-  </div>
+        </div>
+        </div>
+
     );
   }

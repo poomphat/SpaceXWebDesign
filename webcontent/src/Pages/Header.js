@@ -1,15 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  Toolbar,
-  AppBar,
-  Typography,
-  IconButton,
-  Icon,
   Button
 } from '@material-ui/core/';
 import {Link} from "react-router-dom";
-import purple from '@material-ui/core/colors/purple';
 import logo from '../asset/image/logo.png'
 const path = window.location.pathname;
 const useStyles = makeStyles((theme) => ({

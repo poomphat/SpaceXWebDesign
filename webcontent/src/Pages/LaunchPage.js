@@ -1,22 +1,13 @@
 
 import '../content.css'
 import React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import rocket from '../asset/image/rocket.jpg'
 import {
-    Card,
-    CardActions,
-    CardContent,
-    Typography,
-    Button,
-    Icon,
-    Container,
     Select,
     MenuItem,
-    Checkbox,
     InputLabel,
-    FormControlLabel,
     FormControl,
   } from '@material-ui/core/';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -42,49 +33,59 @@ const useStyles = makeStyles({
   });
 
 export default function Launchpage() {
-  const [checked,setchecked] = useState(false)
-  const [hidden, setHidden] = useState(0);
   const [data, setData] = useState([[], []]);
-  const [limit, setLimit] = useState(6);
+  const [limit, ] = useState(6);
   const [offSet, setOffSet] = useState(0);
-  const [year, setYear] = useState([2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020]);
+  const [year, ] = useState([2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020]);
   const [hasMore, setHasMore] = useState(true);
   // update offset for fetch
-  const incOffSet = () =>{
+  const incOffSet = useCallback(() =>{
     setOffSet(offSet + 6);
-  }
+    return offSet+6;
+  });
   //reset offSet 
-  const resetOffset = () =>{
+  const resetOffset = useCallback( () =>{
     setOffSet(0);
-  }
+  });
   //merge launch data
-  const mergeLaunch = (launchs, prev) =>{
+  const mergeLaunch = useCallback( (launchs, prev) =>{
     const merged = [...prev, ...launchs];
     return merged
-  }
+  });
   //swap hasMore
-  const swapHasMore = () =>{
+  const swapHasMore = useCallback( () =>{
     setHasMore(!hasMore);
-  }
+  });
   //for filter
   
   const [launchYearFilter, setlaunchYearFilter] = useState('');
   const [rocketFilter, setRocketFilter] = useState('');
   const [isSuccessFilter, setIsSuccessFilter] = useState(3); 
-  const changeYear = (year) =>{
+  const changeYear = useCallback((year) =>{
     setlaunchYearFilter(year)
-  }
-  const changeRocket = (rocket)=>{
+  });
+  const changeRocket =  useCallback((rocket)=>{
     setRocketFilter(rocket)
-  }
-  const changeSuccess = (success)=>{
+  });
+  const changeSuccess =  useCallback((success)=>{
     setIsSuccessFilter(success)
-  }
+  });
 
   // fetch data
-  const fechData = async (flag) =>{
+  const fechData = useCallback(async (flag,offSetfilter) =>{
     const rocketName = rocketFilter.replace(" ", "+")
-    const launchUrl = "https://api.spacexdata.com/v3/launches?limit="+limit+"&offset="+offSet+((rocketName!='')?'&rocket_name='+rocketName:'')+((launchYearFilter!='')?'&launch_year='+launchYearFilter:'')+((isSuccessFilter!=3)?'&launch_success='+isSuccessFilter:'');
+    const launchUrl = "https://api.spacexdata.com/v3/launches?limit="+limit+"&offset="+offSetfilter+((rocketName!='')?'&rocket_name='+rocketName:'')+((launchYearFilter!='')?'&launch_year='+launchYearFilter:'')+((isSuccessFilter!=3)?'&launch_success='+isSuccessFilter:'');
+    if(flag == 'filter'){
+      setOffSet(0);
+      const launchUrl = "https://api.spacexdata.com/v3/launches?limit="+limit+"&offset="+offSetfilter+((rocketName!='')?'&rocket_name='+rocketName:'')+((launchYearFilter!='')?'&launch_year='+launchYearFilter:'')+((isSuccessFilter!=3)?'&launch_success='+isSuccessFilter:'');
+      console.log(launchUrl)
+      const response1 = await fetch("https://api.spacexdata.com/v3/rockets");
+      const rockets = await response1.json();
+      const response = await fetch(launchUrl);
+      const launches = await response.json();
+      const response2 = await fetch("https://api.spacexdata.com/v3/launches/latest");
+      const latest = await response2.json();
+    }
     console.log(launchUrl)
     const response1 = await fetch("https://api.spacexdata.com/v3/rockets");
     const rockets = await response1.json();
@@ -92,6 +93,7 @@ export default function Launchpage() {
     const launches = await response.json();
     const response2 = await fetch("https://api.spacexdata.com/v3/launches/latest");
     const latest = await response2.json();
+    
     if (launches.length == 0){
       swapHasMore();
     }
@@ -103,70 +105,62 @@ export default function Launchpage() {
       mLaunches = await mergeLaunch(launches, []);
     }
     setData([rockets, mLaunches, latest]);
-    setHidden(hidden+1);
-    setchecked(true)
-  };
+    
+  });
   //fetch data at start 
 
   useEffect(() => {
-    fechData('');
-    setHidden(hidden+1);
+    fechData('',offSet);
   }, []);
 
   //fetch data when change filter
   
   useEffect(() => {
     setHasMore(true);
-    setOffSet(0);
-    fechData('filter');
-    //setHidden(hidden+1);
+    resetOffset();
+    console.log('reseted')
+    fechData('filter',0);
 
   }, [launchYearFilter, rocketFilter, isSuccessFilter]);
   /*
   useEffect(() => {
     resetOffset();
     fechData();
-  }, [offSet]);
+  });
   */
   
   
   //fetchMoreData for loading
-  const fetchMoreData = () =>{
-    incOffSet();
-    fechData('');
-  }
-  //+"&rocket_name="+rocketName+"&launch_success="false&launch_year=2006"
-    //filter
+  const fetchMoreData = useCallback(() =>{
+    
+    fechData('',incOffSet());
+  });
   /*
   useEffect(() => {
-    const filter = () => {
-      //filterSet = [year, rocket, success]
-      let launches = data[1].filter(launch => launch?.launch_year.includes(launchYearFilter)
-        && launch?.rocket?.rocket_name.includes(rocketFilter))
-      
-      if (isSuccessFilter != 0){
-        launches.filter(launch => launch?.launch_year == isSuccessFilter)
-      }
-      setData([data[0], launches]);
+    console.log('befsorecheck')
+    console.log(offSet)
+    if(offSet == 0){
+      fechData('filter');
+      console.log('filter')
+    }else{
+      fechData('');
+      console.log('base')
     }
-    filter();
-  }, [launchYearFilter,rocketFilter,isSuccessFilter]);
-  
+  }, [offSet])
   */
-
 
   const classes = useStyles();
 
   
   return ( 
-    <div style={{width: '100vw'}} className='images'>
+    <div style={{width: '100vw'}} className=''>
       <div className="container" style={{justifyContent: 'center'}}>
         <div className="row">
         <div className="row col-12">
-        <div className="TitleRocket col-lg-5 col-xs-10 ml-4" style={{marginTop: '2vh',alignSelf: 'flex-end',}}> Launches</div>
-        <div className="col-lg-5 col-xs-10" style={{alignSelf: 'flex-end',}}>
-        <div className="formEz ml-2">
-          <FormControl className=''>
+        <div className="TitleRocket col-lg-6 col-xs-10 ml-4 mr-4" style={{marginTop: '2vh',alignSelf: 'flex-end',fontSize: '4rem'}}> Launches</div>
+        <div className="col-lg-5 col-xs-9 mb-3" style={{alignSelf: 'flex-end',}}>
+        <div className="formEz ml-2 row">
+          <FormControl>
           <InputLabel id='launch-year-label'>launch year</InputLabel>
           <Select id='launch-year' labelId="launch-year-label" className={classes.selectBox} onChange={(event) => {setlaunchYearFilter(event.target.value)}}>
             <MenuItem value={''}>None</MenuItem>
@@ -175,7 +169,7 @@ export default function Launchpage() {
             })}
           </Select>
           </FormControl>
-          <FormControl className=''>
+          <FormControl>
           <InputLabel labelId="rocket-label">Rocket</InputLabel>
           <Select className={classes.selectBox} labelId="rocket-label" onChange={(event) => {setRocketFilter(event.target.value)}}>
             <MenuItem value={''}>None</MenuItem>
@@ -184,8 +178,8 @@ export default function Launchpage() {
             })}
           </Select>
         </FormControl>
-        <FormControl className=''>
-          <InputLabel labelId="success-label">isSuccess</InputLabel>
+        <FormControl>
+          <InputLabel labelId="success-label">Result</InputLabel>
           <Select className={classes.selectBox} labelId="success-label" onChange={(event) => {setIsSuccessFilter(event.target.value)}}>
             <MenuItem value={3}>None</MenuItem>
             <MenuItem value={true} >Success</MenuItem>
@@ -193,28 +187,29 @@ export default function Launchpage() {
           </Select>
         </FormControl>
       </div></div>
+      <div className="col-12">
+      <hr color="white"/></div>
   </div>
       {/* launch list */}
       <div className="col-12" style={{justifyContent: 'center', alignItems:'center'}}>
       
         <InfiniteScroll
           className=''
-          style={{overflow:'hidden'}}
+          style={{overflow:'hidden',}}
           dataLength={data[1].length}
           next={fetchMoreData}
           hasMore={hasMore}
-          loader={<p style={{ textAlign: 'center' , color:'white', }}>...Loading...</p>}
+          loader={<p style={{ textAlign: 'center' , color:'white', height: '10vh'}}>...Loading...</p>}
           endMessage={
-            <p style={{ textAlign: 'center', color:'white',}}>
+            <p style={{ textAlign: 'center', color:'white', height: '10vh'}}>
               <b>U catched 'em all</b>
             </p>
           }
         > 
-        <div className='row'>
+        <div className='row' style={{justifyContent: 'center', alignItems:'center'}}>
           {data[1]?.map((launch, index) => {
-              return <div className="col-sm-5 col-lg-5 mt-3 mb-2 p-4 mr-3 ml-4" style={{backgroundColor:"#e0e0e0", color:'black',borderRadius: '5px'}} data-aos="zoom-in">
+              return <div className="col-sm-12 col-lg-5 mt-3 mb-2 p-4 mr-4 about" style={(launch?.launch_success)?{borderLeft: '0.5rem solid rgba(48,290,88)'}:{borderLeft: '0.5rem solid rgba(255,69,58)'}} data-aos="zoom-in">
                       <h2>{launch?.mission_name} - {launch?.launch_year}</h2>
-                      <div style={{display: 'none'}}>{hidden}</div>
                       <hr/>
                       <h5>Rocket : {launch?.rocket?.rocket_name}</h5>
                       {(launch?.launch_success)?(<h5>Result : <span className='text-success'>Success</span></h5>):(<h5> Result : <span className='text-danger'>Failed</span></h5>)}

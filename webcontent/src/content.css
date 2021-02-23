@@ -21,27 +21,32 @@
     align-self: center;
 }
 .firstpic{
-    width: 100vw;
+    width: 100%;
     background-image: url('./asset/image/space.png');
     height: 110vh;
     top: 0;
     left: 0;
     z-index: 0;
-    background-position: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    background-position: left;
     background-repeat: no-repeat;
     background-size: cover;
-    box-shadow: inset 0px 0px 10px 10px #061221;
 }
 .textElon{
     justify-content: center;
     align-self: center;
     font-size: 28px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(100,100,100,0.3);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
     padding:30px;
+    border-radius: 5px;
     color: #fff;
     transition: 0.25s;
-    border-left: 0.5rem solid #000;
+    border-left: 0.5rem solid rgba(48,290,88);
 }
 .textElon:hover{
     transform: scale(1.01,1.01);
@@ -58,11 +63,10 @@
     background-size: cover;
 }
 .mainContent{
-    position:absolute;
+    position: absolute;
+    align-self: center;
     width: 100vw;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
 }
@@ -95,47 +99,40 @@
     justify-content: center;
     align-self: center;
     font-size: 18px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(100,100,100,0.3);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.7) 0px 8px 16px -8px;
     padding:30px;
     color: #fff;
     transition: 0.25s;
-    border-left: 0.5rem solid #000;
+    border-radius: 5px;
+    border-left: 0.5rem solid rgba(48,290,88);
     margin-left: 20px;
-}
-
-.content2{
-    background-image: url('./asset/image/bg2.png');
-    background-attachment: fixed;
-    background-size: cover;
 }
 .detail{
     background: rgba(0,0,0,0.75);
+    border-left: 0.5rem solid rgba(48,290,88);
 }
 .TitleRocket{
     align-self: left;
     padding-top: 10px;
     text-align: left;
-    font-size: 4rem;
     border-radius: 5px;
     color: #fff;
     text-shadow: 2px 2px 3px rgba(255,255,255,0.4);
 }
 .descript{
-    background-color: #e0e0e0;
     padding: 10px;
     text-align: left;
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 5px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    color: #000;
+    color: #fff;
     margin-top: 20px;
 }
 .formEz{
     background-color: #e0e0e0;
     border-radius: 6px;
     width: 100%;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     padding-left: 10px
 }
 .images{
@@ -145,3 +142,29 @@
     background-attachment: fixed;
     background-size: cover;
 }
+.rocketImage{
+    width: 100vw;
+    height:40vh;
+    border-radius: 0;
+    background-size: cover;
+    background-position:center;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.4);
+  }
+  .paperText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height:40vh;
+    position:relative;
+    text-align:right;
+    align-self: center;
+    padding: 10px;
+    color: white;
+    transition: 0.25s;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.4);
+  }
+  .paperText:hover{
+    background-color: rgba(0,0,0,0.55);
+  }
