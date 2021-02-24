@@ -10,6 +10,7 @@ import Mainpage from '../Pages/MainPage'
 import Launchpage from '../Pages/LaunchPage'
 import Rocketpage from '../Pages/RocketPage'
 import RocketMainpage from '../Pages/RocketMainPage'
+import LaunchDetail from '../Pages/LaunchDetail'
 
 export default function Yeeter (){
     return(
@@ -22,7 +23,7 @@ export default function Yeeter (){
                 <Mainpage/>
                 </>
             </Route>
-            <Route path='/launch'>
+            <Route exact path='/launch'>
                 <>
                 <Header/>
                 <Launchpage/>
@@ -38,6 +39,12 @@ export default function Yeeter (){
                 <>
                 <Header/>
                 <Rocketpage/>
+                </>
+            </Route>
+            <Route path='/launch/:flight_number'>
+                <>
+                <Header/>
+                <LaunchDetail/>
                 </>
             </Route>
         </Switch>

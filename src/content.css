@@ -168,3 +168,11 @@
   .paperText:hover{
     background-color: rgba(0,0,0,0.55);
   }
+  .launchCard:hover{
+    background-color: rgba(0,0,0,0.55);
+    cursor: pointer;
+    color: white;
+  }
+  .launchCard{
+    transition: 0.25s !important;
+  }

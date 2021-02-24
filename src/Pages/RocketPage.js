@@ -16,26 +16,6 @@ import {
     useParams
   } from "react-router-dom";
 
-  const RocketImage = [{
-    id: 'falcon1',
-    url:"https://www.nasaspaceflight.com/wp-content/uploads/2017/12/BCK_4062-1.jpg",
-},
-{
-    id: 'falcon9',
-    url:"https://www.drkrok.com/wp-content/uploads/2019/05/SpaceX-Falcon-9-rocket.jpg",
-
-},
-{
-    id:'falconHeavy',
-    url:"https://thestandard.co/wp-content/uploads/2018/02/NEWS-spaceX_cover_.jpg",
-
-},
-{
-    id:'starship',
-    url:"https://techcrunch.com/wp-content/uploads/2019/09/Starship-Mk1-Day.jpg?w=600",
-
-}
-]
 
 const useStyles = makeStyles({
     cardroot: {
@@ -74,14 +54,14 @@ export default function Rocketpage() {
       };
       fechRocket();
     }, []);
-    const image = RocketImage.find(i => i.id == rocket_id).url
+    
     const classes = useStyles();
     
     const openInfoNewTab = (url) =>{
         const win = window.open(url, "_blank");
         console.log(win)
     }
-    console.log(image);
+  
     return ( 
 
       <div className='container'>
@@ -100,25 +80,25 @@ export default function Rocketpage() {
       </div>
       
       <div className="TitleRocket col-lg-6 col-xs-12 mr-4 ml-2" style={{marginTop: '2vh',fontSize: '18px'}}>
-            <p style={{color:'white'}}>Status : {(rocket.active)? 'Activate' : 'Not Activate'}</p>
-            <p>First Flight : {rocket.first_flight} </p>
-            <p>Cost per launch : {rocket.cost_per_launch/1000000} Millions USD</p>
-            <p>Height : {rocket.height?.meters} meters</p>
-            <p>diameter : {rocket.diameter?.meters} meters</p>
+            <p style={{color:'white'}}>Status : {(rocket?.active)? 'Activate' : 'Not Activate'}</p>
+            <p>First Flight : {rocket?.first_flight} </p>
+            <p>Cost per launch : {rocket?.cost_per_launch/1000000} Millions USD</p>
+            <p>Height : {rocket?.height?.meters} meters</p>
+            <p>diameter : {rocket?.diameter?.meters} meters</p>
             <br/>
             <br/>
 
        </div>
         <div className="descript col-lg-5 col-xs-12 ">
-          <img src={rocket.flickr_images} style={{width: '100%',borderRadius: '5px'}}/>
+          <img src={rocket?.flickr_images} style={{width: '100%',borderRadius: '5px'}}/>
           </div>
       </div>
      <div className="row">
       <div className="descript col-lg-6 col-xs-11 "> <h3>First stage</h3> 
         <hr color="white"/>
        
-            <div>Reusable : {(rocket.first_stage?.reusable)? 'Yes' : 'No'}</div>
-            <div>engines : {rocket.first_stage?.engines} </div>
+            <div>Reusable : {(rocket?.first_stage?.reusable)? 'Yes' : 'No'}</div>
+            <div>engines : {rocket?.first_stage?.engines} </div>
             <div>Fuel amount tons : {rocket?.first_stage?.fuel_amount_tons} Tons</div>
             <div>burn time per sec : {rocket?.first_stage?.burn_time_sec} seconds</div>
             </div>
@@ -127,8 +107,8 @@ export default function Rocketpage() {
       <h3>Second stage</h3> 
           <hr color="white"/>
        
-            <div>Reusable : {(rocket.second_stage?.reusable)? 'Yes' : 'No'}</div>
-            <div>engines : {rocket.second_stage?.engines} </div>
+            <div>Reusable : {(rocket?.second_stage?.reusable)? 'Yes' : 'No'}</div>
+            <div>engines : {rocket?.second_stage?.engines} </div>
             <div>Fuel amount tons : {rocket?.second_stage?.fuel_amount_tons} Tons</div>
             <div>burn time per sec : {rocket?.second_stage?.burn_time_sec} seconds</div>
             </div>

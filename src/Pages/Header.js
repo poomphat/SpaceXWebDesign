@@ -39,13 +39,13 @@ export default function Header() {
             <div className=" col-6 row">
            
             <Link to="/rocket" style={{ textDecoration: 'none' }}>
-              <Button variant={(path=='/rocket')?'contained':""} className={classes.buttonNav} style={(path=='/rocket') ? {border:"none",outline:"none",color: 'black'} : {border:"none",outline:"none"}}>
+              <Button variant={(path.includes('/rocket'))?'contained':""} className={classes.buttonNav} style={(path.includes('/rocket')) ? {border:"none",outline:"none",color: 'black'} : {border:"none",outline:"none"}}>
                 Rocket
               </Button>
             </Link>
          
             <Link to="/launch" style={{ textDecoration: 'none' }} className="col-3">
-              <Button variant={(path=='/launch')?'contained':""} className={classes.buttonNav} style={(path=='/launch') ? {border:"none",outline:"none",color: 'black'} : {border:"none",outline:"none"}}>
+              <Button variant={(path.includes('/launch'))?'contained':""} className={classes.buttonNav} style={(path.includes('/launch')) ? {border:"none",outline:"none",color: 'black'} : {border:"none",outline:"none"}}>
                 Launch
               </Button>
             </Link></div></div>

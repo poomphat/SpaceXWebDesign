@@ -9,7 +9,9 @@ import {
     MenuItem,
     InputLabel,
     FormControl,
+    TextField,
   } from '@material-ui/core/';
+import {Link} from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const useStyles = makeStyles({
@@ -72,13 +74,12 @@ export default function Launchpage() {
   });
 
   // fetch data
-  const fechData = useCallback(async (flag,offSetfilter) =>{
+  const fechData = useCallback(async (flag, offSetfilter) =>{
     const rocketName = rocketFilter.replace(" ", "+")
     const launchUrl = "https://api.spacexdata.com/v3/launches?limit="+limit+"&offset="+offSetfilter+((rocketName!='')?'&rocket_name='+rocketName:'')+((launchYearFilter!='')?'&launch_year='+launchYearFilter:'')+((isSuccessFilter!=3)?'&launch_success='+isSuccessFilter:'');
     if(flag == 'filter'){
       setOffSet(0);
       const launchUrl = "https://api.spacexdata.com/v3/launches?limit="+limit+"&offset="+offSetfilter+((rocketName!='')?'&rocket_name='+rocketName:'')+((launchYearFilter!='')?'&launch_year='+launchYearFilter:'')+((isSuccessFilter!=3)?'&launch_success='+isSuccessFilter:'');
-      console.log(launchUrl)
       const response1 = await fetch("https://api.spacexdata.com/v3/rockets");
       const rockets = await response1.json();
       const response = await fetch(launchUrl);
@@ -86,7 +87,6 @@ export default function Launchpage() {
       const response2 = await fetch("https://api.spacexdata.com/v3/launches/latest");
       const latest = await response2.json();
     }
-    console.log(launchUrl)
     const response1 = await fetch("https://api.spacexdata.com/v3/rockets");
     const rockets = await response1.json();
     const response = await fetch(launchUrl);
@@ -160,27 +160,21 @@ export default function Launchpage() {
         <div className="TitleRocket col-lg-6 col-xs-10 ml-4 mr-4" style={{marginTop: '2vh',alignSelf: 'flex-end',fontSize: '4rem'}}> Launches</div>
         <div className="col-lg-5 col-xs-9 mb-3" style={{alignSelf: 'flex-end',}}>
         <div className="formEz ml-2 row">
-          <FormControl>
-          <InputLabel id='launch-year-label'>launch year</InputLabel>
-          <Select id='launch-year' labelId="launch-year-label" className={classes.selectBox} onChange={(event) => {setlaunchYearFilter(event.target.value)}}>
-            <MenuItem value={''}>None</MenuItem>
-            {year?.map((year, index) => {
-              return <MenuItem value={year}>{year}</MenuItem>
-            })}
-          </Select>
+          <FormControl className='col-lg-4 col-xs-11'>
+          <TextField  id='launch-year' label="Launch year" onInput={(event) => {setlaunchYearFilter(event.target.value)}}/>
           </FormControl>
-          <FormControl>
-          <InputLabel labelId="rocket-label">Rocket</InputLabel>
-          <Select className={classes.selectBox} labelId="rocket-label" onChange={(event) => {setRocketFilter(event.target.value)}}>
+          <FormControl className='col-lg-4 col-xs-11'>
+          <InputLabel labelId="rocket-label" className="ml-3">Rocket</InputLabel>
+          <Select labelId="rocket-label" onChange={(event) => {setRocketFilter(event.target.value)}}>
             <MenuItem value={''}>None</MenuItem>
             {data[0]?.map((rocket, index) => {
               return <MenuItem value={rocket?.rocket_name}>{rocket?.rocket_name}</MenuItem>
             })}
           </Select>
         </FormControl>
-        <FormControl>
-          <InputLabel labelId="success-label">Result</InputLabel>
-          <Select className={classes.selectBox} labelId="success-label" onChange={(event) => {setIsSuccessFilter(event.target.value)}}>
+        <FormControl className='col-lg-4 col-xs-11'>
+          <InputLabel labelId="success-label" className="ml-3">Result</InputLabel>
+          <Select labelId="success-label" onChange={(event) => {setIsSuccessFilter(event.target.value)}}>
             <MenuItem value={3}>None</MenuItem>
             <MenuItem value={true} >Success</MenuItem>
             <MenuItem value={false} >Failed</MenuItem>
@@ -208,13 +202,19 @@ export default function Launchpage() {
         > 
         <div className='row' style={{justifyContent: 'center', alignItems:'center'}}>
           {data[1]?.map((launch, index) => {
-              return <div className="col-sm-12 col-lg-5 mt-3 mb-2 p-4 mr-4 about" style={(launch?.launch_success)?{borderLeft: '0.5rem solid rgba(48,290,88)'}:{borderLeft: '0.5rem solid rgba(255,69,58)'}} data-aos="zoom-in">
-                      <h2>{launch?.mission_name} - {launch?.launch_year}</h2>
-                      <hr/>
-                      <h5>Rocket : {launch?.rocket?.rocket_name}</h5>
-                      {(launch?.launch_success)?(<h5>Result : <span className='text-success'>Success</span></h5>):(<h5> Result : <span className='text-danger'>Failed</span></h5>)}
-                      <h5>Date : {new Date(launch?.launch_date_utc).toLocaleDateString()}</h5>
-                     </div>
+              return  <Link to={"/launch/"+launch?.flight_number}
+                        className="col-sm-12 col-lg-5 mt-3 mb-2 p-4 mr-4 about launchCard"
+                        style={(launch?.launch_success)?{borderLeft: '0.5rem solid rgba(48,290,88)',textDecoration: 'none'}:{borderLeft: '0.5rem solid rgba(255,69,58)',textDecoration: 'none'}}  
+                        data-aos="zoom-in"
+                        key={launch?.flight_number}>
+                      <div>
+                          <h2>{launch?.mission_name} - {launch?.launch_year}</h2>
+                          <hr color="white"/>
+                          <h5>Rocket : {launch?.rocket?.rocket_name}</h5>
+                          {(launch?.launch_success)?(<h5>Result : <span className='text-success'>Success</span></h5>):(<h5> Result : <span className='text-danger'>Failed</span></h5>)}
+                          <h5>Date : {new Date(launch?.launch_date_utc).toLocaleDateString()}</h5>
+                      </div>
+                      </Link>
             })}
             </div>
       </InfiniteScroll>
